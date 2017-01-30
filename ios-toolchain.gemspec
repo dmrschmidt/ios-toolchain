@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Dennis Schmidt"]
   spec.email         = ["dschmidt@pivotal.io"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = "Collection of rake tasks and scripts to ease iOS development."
+  spec.description   = "Collection of rake tasks and scripts to ease iOS development."
+  spec.homepage      = "http://github.com/dmrschmidt/ios-toolchain"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.

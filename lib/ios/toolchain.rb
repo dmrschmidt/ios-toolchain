@@ -6,7 +6,7 @@ module Ios
     class Tasks
       include Rake::DSL if defined? Rake::DSL
       def install_tasks
-         load 'ios/tasks/**/*.rake'
+        Dir.glob('ios/tasks/**/*.rake').each { |file| load file }
       end
     end
   end
