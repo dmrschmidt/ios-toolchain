@@ -39,6 +39,10 @@ module IosToolchain
 
     def config
       YAML.load_file(File.join(Bundler.root, config_name))
+    rescue
+      puts 'WARNING: no ios_toolchain.yml config file found.'
+      puts 'Run `rake toolchain:bootstrap`.'
+      {}
     end
 
     def config_name
