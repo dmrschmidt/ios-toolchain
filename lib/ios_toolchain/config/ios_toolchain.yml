@@ -1,0 +1,5 @@
+app-targets:
+  - MyAppTarget
+
+test-targets:
+  - MyAppTargetTests
