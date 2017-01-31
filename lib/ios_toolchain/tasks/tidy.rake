@@ -1,4 +1,4 @@
-include Helpers
+include IosToolchain::Helpers
 
 desc "Reports and attempts to tidy up common cleanliness problems with the codebase"
 task :tidy => ['tidy:project_file', 'tidy:specs', 'tidy:whitespace', 'tidy:lint']

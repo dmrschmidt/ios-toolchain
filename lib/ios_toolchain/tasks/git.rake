@@ -1,4 +1,4 @@
-include Helpers
+include IosToolchain::Helpers
 
 namespace :git do
   desc "Checks for uncommitted changes and aborts if any are found"

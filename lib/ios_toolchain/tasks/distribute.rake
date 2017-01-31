@@ -1,4 +1,4 @@
-include Helpers
+include IosToolchain::Helpers
 
 namespace :distribute do
   task :crashlytics, :ipa_path, :configuration do |t, args|

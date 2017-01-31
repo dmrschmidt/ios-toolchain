@@ -1,4 +1,4 @@
-include Helpers
+include IosToolchain::Helpers
 
 desc 'CI scripts'
 namespace :ci do

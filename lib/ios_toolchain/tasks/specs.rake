@@ -1,4 +1,4 @@
-include Helpers
+include IosToolchain::Helpers
 
 def build_specs_cmd(scheme, skip_32bit=false)
   puts "Running specs for #{scheme}..."

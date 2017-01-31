@@ -1,4 +1,4 @@
-include Helpers
+include IosToolchain::Helpers
 
 desc 'builds the app'
 namespace :build do

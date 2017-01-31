@@ -1,5 +1,5 @@
 
-desc "Tells you if you need to do any cleanup of the code before you push"
+desc "Checks you if you need to do any cleanup of the code before you push"
 task :am_i_done_yet  do
    Rake::Task['git:check_for_uncommitted_changes'].invoke
    Rake::Task['clean:build'].invoke

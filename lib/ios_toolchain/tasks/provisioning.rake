@@ -1,4 +1,4 @@
-include Helpers
+include IosToolchain::Helpers
 require "fileutils"
 
 desc 'helpers for dealing with provisiong'
@@ -12,4 +12,3 @@ namespace :provisioning do
 		system("cp -r #{local_profiles_path} #{system_profile_path}")
 	end
 end
-
