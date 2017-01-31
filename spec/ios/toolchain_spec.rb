@@ -1,7 +1,7 @@
 require "spec_helper"
 
-RSpec.describe Ios::Toolchain do
+RSpec.describe IosToolchain do
   it "has a version number" do
-    expect(Ios::Toolchain::VERSION).not_to be nil
+    expect(IosToolchain::VERSION).not_to be nil
   end
 end

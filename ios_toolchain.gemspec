@@ -1,17 +1,17 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'ios/toolchain/version'
+require 'ios_toolchain/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "ios-toolchain"
-  spec.version       = Ios::Toolchain::VERSION
+  spec.name          = "ios_toolchain"
+  spec.version       = IosToolchain::VERSION
   spec.authors       = ["Dennis Schmidt"]
   spec.email         = ["dschmidt@pivotal.io"]
 
   spec.summary       = "Collection of rake tasks and scripts to ease iOS development."
   spec.description   = "Collection of rake tasks and scripts to ease iOS development."
-  spec.homepage      = "http://github.com/dmrschmidt/ios-toolchain"
+  spec.homepage      = "http://github.com/dmrschmidt/ios_toolchain"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
