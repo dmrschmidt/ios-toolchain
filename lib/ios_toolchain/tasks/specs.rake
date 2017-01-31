@@ -6,8 +6,8 @@ def build_specs_cmd(scheme, options={})
   specs_cmd << 'set -o pipefail &&'
   specs_cmd << "xcodebuild -workspace #{project_file_path}/project.xcworkspace"
   specs_cmd << "-scheme #{scheme} test CODE_SIGNING_REQUIRED=NO -sdk iphonesimulator"
-  specs_cmd << "-destination platform='iOS Simulator,OS=10.1,name=iPhone 5'" unless options[:skip_32bit]
-  specs_cmd << "-destination platform='iOS Simulator,OS=10.1,name=iPhone 6'"
+  specs_cmd << "-destination platform='iOS Simulator,OS=10.2,name=iPhone 5'" unless options[:skip_32bit]
+  specs_cmd << "-destination platform='iOS Simulator,OS=10.2,name=iPhone 7'"
   specs_cmd << '| bundle exec xcpretty'
   specs_cmd = specs_cmd.join(" ")
 end
@@ -19,7 +19,7 @@ def run_tests_or_bail(tests, args)
   Rake::Task['clean:simulator'].reenable
   tests.each do |target|
     if(!system(build_specs_cmd(target, skip_32bit: args[:skip_32bit])))
-      bail("UI spec failure - please fix the failing specs and try again")
+      bail("Specs failure - please fix the failing specs and try again.")
     end
   end
 end
