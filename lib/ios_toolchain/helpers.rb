@@ -46,7 +46,7 @@ module IosToolchain
     end
 
     def config_name
-      'ios_toolchain.yml'
+      '.ios_toolchain.yml'
     end
 
     def bail(msg="Uh oh, looks like something isn't right")
