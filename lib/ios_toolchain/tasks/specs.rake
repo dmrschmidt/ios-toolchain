@@ -18,7 +18,7 @@ def run_tests_or_bail(tests, args)
   Rake::Task['clean:build'].reenable
   Rake::Task['clean:simulator'].reenable
   tests.each do |target|
-    if(!system(build_specs_cmd(target), skip_32bit: args[:skip_32bit]))
+    if(!system(build_specs_cmd(target, skip_32bit: args[:skip_32bit])))
       bail("UI spec failure - please fix the failing specs and try again")
     end
   end
@@ -35,11 +35,11 @@ namespace :specs do
 
   desc "Run the unit tests (optionally skip 32 bit devices)"
   task :unit, [:skip_32bit] => ['clean:build', 'clean:simulator'] do |task, args|
-    run_tests_or_bail(test_targets)
+    run_tests_or_bail(test_targets, args)
   end
 
   desc "Run the UI tests (optionally skip 32 bit devices)"
   task :ui, [:skip_32bit] => ['clean:build', 'clean:simulator'] do |task, args|
-    run_tests_or_bail(ui_test_targets)
+    run_tests_or_bail(ui_test_targets, args)
   end
 end
