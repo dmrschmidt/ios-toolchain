@@ -4,14 +4,14 @@ desc "Reports and attempts to tidy up common cleanliness problems with the codeb
 task :tidy => ['tidy:project_file', 'tidy:specs', 'tidy:whitespace', 'tidy:lint']
 
 namespace :tidy do
-  desc "Unfocusses any focussed specs"
+  desc "Unfocusses any focussed Quick specs"
   task :specs do
     puts "Unfocussing specs..."
 
     find_focussed_files_cmd = []
     find_focussed_files_cmd << 'grep -l -r -e'
     find_focussed_files_cmd << '"fit(\\|fdescribe(\\|fcontext"'
-    find_focussed_files_cmd << TEST_DIRS
+    find_focussed_files_cmd << test_targets
     find_focussed_files_cmd << '2>/dev/null'
     find_focussed_files_cmd = find_focussed_files_cmd.join(' ')
 
@@ -33,14 +33,14 @@ namespace :tidy do
   desc "Sorts the project file"
   task :project_file do
     puts "Sorting the project file..."
-    system("script/sort-Xcode-project-file #{File.expand_path('../../../DongleData.xcodeproj', __FILE__)}")
+    system("script/sort-Xcode-project-file #{project_file_path}")
     puts "Done!"
   end
 
-  desc "Remove trailing whitespace from swift files"
+  desc "Removes trailing whitespace from code files"
   task :whitespace do
     puts "Removing trailing whitespace..."
-    system("find #{PRODUCTION_DIRS.join(" ")} #{TEST_DIRS.join(" ")} -name \"*.swift\" -exec sed -i '' -e's/[ ]*$//' \"{}\" \\;")
+    system("find #{app_targets.join(" ")} #{test_targets.join(" ")} -name \"*.[m,h,swift]\" -exec sed -i '' -e's/[ ]*$//' \"{}\" \\;")
     puts "Done!"
   end
 
@@ -53,5 +53,6 @@ namespace :tidy do
     if !system("swiftlint lint --strict")
       bail("Code hygeine problems were detected via swiftlint")
     end
+    puts "Done!"
   end
 end

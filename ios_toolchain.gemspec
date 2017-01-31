@@ -34,4 +34,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rake", "~> 12.0"
   spec.add_dependency "xcodeproject", "~> 0.3"
+  spec.add_dependency "bundler", "~> 1.0"
+  spec.add_dependency "xcpretty", "~> 0.2"
 end

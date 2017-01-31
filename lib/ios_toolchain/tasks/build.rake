@@ -1,33 +1,39 @@
 include IosToolchain::Helpers
 
-desc 'builds the app'
+desc 'Builds the app'
 namespace :build do
-  task :with_config, :output_path, :configuration do |t, args|
+  desc 'Builds the app with specified Configuration to output path'
+  task :with, :output_path, :configuration do |t, args|
     args.with_defaults(:output_path => 'archive')
 
     puts '===================================='
-    puts "=== Archive Output Path building #{args[:configuration]}: in #{args[:output_path]}"
+    puts "=== Building #{args[:configuration]} archive in #{args[:output_path]}"
     puts '===================================='
     build_cmd = []
-    build_cmd << 'xcodebuild -project DongleData.xcodeproj -scheme DongleData SYMROOT=build OBJROOT=build archive'
-    build_cmd << 'CODE_SIGNING_REQUIRED=YES -sdk iphoneos9.3'
-    build_cmd << "-configuration #{args[:configuration]} -archivePath #{args[:output_path]}/DongleData.xcarchive -derivedDataPath derived"
+    build_cmd << "xcodebuild -project #{project_file_path}"
+    build_cmd << "-scheme #{default_scheme} SYMROOT=build OBJROOT=build archive"
+    build_cmd << "CODE_SIGNING_REQUIRED=YES -sdk #{default_sdk}"
+    build_cmd << "-configuration #{args[:configuration]}" if args[:configuration]
+    build_cmd << "-archivePath #{args[:output_path]}/#{default_scheme}.xcarchive"
+    build_cmd << "-derivedDataPath derived"
     sh(build_cmd.join(' '))
   end
 
-  task :acceptance, :output_path do |t, args|
+  desc 'Builds the app with Default configuration'
+  task :default do
     args.with_defaults(:output_path => 'archive')
-    Rake::Task['build:with_config'].invoke(args[:output_path], 'Acceptance')
+    Rake::Task['build:archive_with'].invoke(args[:output_path], nil)
   end
 
-  task :beta, :output_path do |t, args|
+  desc 'Builds the app with Acceptance configuration'
+  task :acceptance do
     args.with_defaults(:output_path => 'archive')
-    Rake::Task['build:with_config'].invoke(args[:output_path], 'Beta')
+    Rake::Task['build:archive_with'].invoke(args[:output_path], 'Acceptance')
   end
 
-  task :zip_archive, [:input_path, :output_path] do |t, args|
-    args.with_defaults(:input_path => 'archive', :output_path => 'archive')
-
-    sh("tar -cvz #{args[:input_path]}/DongleData.xcarchive > #{args[:output_path]}/DongleData.xcarchive.tar.gz")
+  desc 'Builds the app with Beta configuration'
+  task :beta do
+    args.with_defaults(:output_path => 'archive')
+    Rake::Task['build:archive_with'].invoke(args[:output_path], 'Beta')
   end
 end
