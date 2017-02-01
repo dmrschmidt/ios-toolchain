@@ -10,11 +10,11 @@ namespace :build do
     puts "=== Building #{args[:configuration]} archive in #{args[:output_path]}"
     puts '===================================='
     build_cmd = []
-    build_cmd << "xcodebuild -project #{project_file_path}"
-    build_cmd << "-scheme #{default_scheme} SYMROOT=build OBJROOT=build archive"
-    build_cmd << "CODE_SIGNING_REQUIRED=YES -sdk #{default_sdk}"
+    build_cmd << "xcodebuild -project #{config.project_file_path}"
+    build_cmd << "-scheme #{config.default_scheme} SYMROOT=build OBJROOT=build archive"
+    build_cmd << "CODE_SIGNING_REQUIRED=YES -sdk #{config.default_sdk}"
     build_cmd << "-configuration #{args[:configuration]}" if args[:configuration]
-    build_cmd << "-archivePath #{args[:output_path]}/#{default_scheme}.xcarchive"
+    build_cmd << "-archivePath #{args[:output_path]}/#{config.default_scheme}.xcarchive"
     build_cmd << "-derivedDataPath derived"
     sh(build_cmd.join(' '))
   end

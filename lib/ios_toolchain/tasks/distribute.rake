@@ -1,6 +1,6 @@
 include IosToolchain::Helpers
 
-if crashlytics_installed?
+if config.crashlytics_installed?
   namespace :distribute do
     desc 'Distribute pre-built IPA to Crashlytics'
     task :crashlytics, :ipa_path, :configuration do |t, args|
@@ -8,8 +8,8 @@ if crashlytics_installed?
       puts 'Distributing to crashlytics...'
 
       build_cmd = []
-      build_cmd << "#{crashlytics_framework_path}/submit #{ENV['FABRIC_API_KEY']} #{ENV['FABRIC_BUILD_SECRET']}"
-      build_cmd << "-ipaPath #{args[:ipa_path]}/#{default_scheme}-#{args[:configuration]}.ipa"
+      build_cmd << "#{config.crashlytics_framework_path}/submit #{ENV['FABRIC_API_KEY']} #{ENV['FABRIC_BUILD_SECRET']}"
+      build_cmd << "-ipaPath #{args[:ipa_path]}/#{config.default_scheme}-#{args[:configuration]}.ipa"
       build_cmd << "-groupAliases #{args[:configuration]}"
       sh(build_cmd.join(' '))
     end

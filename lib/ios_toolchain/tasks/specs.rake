@@ -4,7 +4,7 @@ def build_specs_cmd(scheme, options={})
   puts "Running specs for #{scheme}..."
   specs_cmd = []
   specs_cmd << 'set -o pipefail &&'
-  specs_cmd << "xcodebuild -workspace #{project_file_path}/project.xcworkspace"
+  specs_cmd << "xcodebuild -workspace #{config.project_file_path}/project.xcworkspace"
   specs_cmd << "-scheme #{scheme} test CODE_SIGNING_REQUIRED=NO -sdk iphonesimulator"
   specs_cmd << "-destination platform='iOS Simulator,OS=10.2,name=iPhone 5'" unless options[:skip_32bit]
   specs_cmd << "-destination platform='iOS Simulator,OS=10.2,name=iPhone 7'"
@@ -35,11 +35,11 @@ namespace :specs do
 
   desc "Run the unit tests (optionally skip 32 bit devices)"
   task :unit, [:skip_32bit] => ['clean:build', 'clean:simulator'] do |task, args|
-    run_tests_or_bail(test_targets, args)
+    run_tests_or_bail(config.test_targets, args)
   end
 
   desc "Run the UI tests (optionally skip 32 bit devices)"
   task :ui, [:skip_32bit] => ['clean:build', 'clean:simulator'] do |task, args|
-    run_tests_or_bail(ui_test_targets, args)
+    run_tests_or_bail(config.ui_test_targets, args)
   end
 end

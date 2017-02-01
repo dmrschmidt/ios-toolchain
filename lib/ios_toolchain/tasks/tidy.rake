@@ -11,7 +11,7 @@ namespace :tidy do
     find_focussed_files_cmd = []
     find_focussed_files_cmd << 'grep -l -r -e'
     find_focussed_files_cmd << '"fit(\\|fdescribe(\\|fcontext"'
-    find_focussed_files_cmd << test_targets
+    find_focussed_files_cmd << config.test_targets
     find_focussed_files_cmd << '2>/dev/null'
     find_focussed_files_cmd = find_focussed_files_cmd.join(' ')
 
@@ -33,14 +33,14 @@ namespace :tidy do
   desc "Sorts the project file"
   task :project_file do
     puts "Sorting the project file..."
-    system("script/sort-Xcode-project-file #{project_file_path}")
+    system("script/sort-Xcode-project-file #{config.project_file_path}")
     puts "Done!"
   end
 
   desc "Removes trailing whitespace from code files"
   task :whitespace do
     puts "Removing trailing whitespace..."
-    system("find #{app_targets.join(" ")} #{test_targets.join(" ")} -name \"*.[m,h,swift]\" -exec sed -i '' -e's/[ ]*$//' \"{}\" \\;")
+    system("find #{config.app_targets.join(" ")} #{config.test_targets.join(" ")} -name \"*.[m,h,swift]\" -exec sed -i '' -e's/[ ]*$//' \"{}\" \\;")
     puts "Done!"
   end
 

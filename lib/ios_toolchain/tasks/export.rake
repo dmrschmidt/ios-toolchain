@@ -12,10 +12,10 @@ namespace :export do
 
 
     build_cmd = []
-    build_cmd << "xcodebuild -project #{project_file_path}"
+    build_cmd << "xcodebuild -project #{config.project_file_path}"
     build_cmd << '-exportArchive'
-	  build_cmd << "-archivePath #{args[:xcarchive_path]}/#{default_scheme}.xcarchive"
-	  build_cmd << "-exportPath #{args[:ipa_path]}/#{default_scheme}.ipa"
+	  build_cmd << "-archivePath #{args[:xcarchive_path]}/#{config.default_scheme}.xcarchive"
+	  build_cmd << "-exportPath #{args[:ipa_path]}/#{config.default_scheme}.ipa"
     system(build_cmd.join(' '))
   end
 end
