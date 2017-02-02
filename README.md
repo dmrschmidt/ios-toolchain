@@ -1,5 +1,7 @@
 # iOS Toolchain
 
+A collection of `rake` tasks that help you keep a clean codebase and ease some of the daily pains when working in teams, like handling provisioning certificates.
+
 ## Installation
 
 Add this line to your application's Gemfile:
