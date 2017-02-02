@@ -35,6 +35,10 @@ module IosToolchain
       config_yaml['ui-test-targets'] || []
     end
 
+    def provisioning_path
+      config_yaml['provisioning-path']
+    end
+
     def crashlytics_framework_path
       config_yaml['crashlytics-framework-path']
     end

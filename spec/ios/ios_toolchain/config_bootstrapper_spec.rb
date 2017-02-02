@@ -13,10 +13,11 @@ RSpec.describe IosToolchain::ConfigBootstrapper do
       allow(project_analyzer).to receive(:project_root).and_return(project_root)
       allow(project_analyzer).to receive(:project_path).and_return('project_file_path')
       allow(project_analyzer).to receive(:default_scheme).and_return('DefaultScheme')
-      allow(project_analyzer).to receive(:crashlytics_framework_path).and_return('crashlytics_framework_path')
       allow(project_analyzer).to receive(:app_targets).and_return(['Target1', 'Target2'])
       allow(project_analyzer).to receive(:test_targets).and_return(['Target1Tests', 'Target2Tests'])
       allow(project_analyzer).to receive(:ui_test_targets).and_return(['Target1UITests', 'Target2UITests'])
+      allow(project_analyzer).to receive(:provisioning_path).and_return('provisioning_path')
+      allow(project_analyzer).to receive(:crashlytics_framework_path).and_return('crashlytics_framework_path')
 
       subject.bootstrap!
     end
@@ -48,10 +49,6 @@ RSpec.describe IosToolchain::ConfigBootstrapper do
         expect(yaml['default-64bit-test-device']).to eq("'iOS Simulator,OS=10.2,name=iPhone 7'")
       end
 
-      it('writes correct crashlytics-framework-path') do
-        expect(yaml['crashlytics-framework-path']).to eq('crashlytics_framework_path')
-      end
-
       it('writes correct app-targets') do
         expect(yaml['app-targets']).to eq(['Target1', 'Target2'])
       end
@@ -62,6 +59,14 @@ RSpec.describe IosToolchain::ConfigBootstrapper do
 
       it('writes correct ui-test-targets') do
         expect(yaml['ui-test-targets']).to eq(['Target1UITests', 'Target2UITests'])
+      end
+
+      it('writes correct provisioning-path') do
+        expect(yaml['provisioning-path']).to eq("#{project_root}/provisioning")
+      end
+
+      it('writes correct crashlytics-framework-path') do
+        expect(yaml['crashlytics-framework-path']).to eq('crashlytics_framework_path')
       end
     end
   end

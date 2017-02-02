@@ -30,10 +30,11 @@ module IosToolchain
         'default-sdk' => 'iphoneos10.2',
         'default-32bit-test-device' => "'iOS Simulator,OS=10.2,name=iPhone 5'",
         'default-64bit-test-device' => "'iOS Simulator,OS=10.2,name=iPhone 7'",
-        'crashlytics-framework-path' => analyzer.crashlytics_framework_path,
         'app-targets' => analyzer.app_targets,
         'test-targets' => analyzer.test_targets,
-        'ui-test-targets' => analyzer.ui_test_targets
+        'ui-test-targets' => analyzer.ui_test_targets,
+        'provisioning-path' => "#{File.join(analyzer.project_root, 'provisioning')}",
+        'crashlytics-framework-path' => analyzer.crashlytics_framework_path
       }
     end
 
