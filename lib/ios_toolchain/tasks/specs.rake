@@ -8,8 +8,8 @@ def build_specs_cmd(scheme, options={})
   specs_cmd << 'set -o pipefail &&'
   specs_cmd << "xcodebuild -workspace #{config.project_file_path}/project.xcworkspace"
   specs_cmd << "-scheme #{scheme} test CODE_SIGNING_REQUIRED=NO -sdk iphonesimulator"
-  specs_cmd << "-destination platform='iOS Simulator,OS=10.2,name=iPhone 5'" unless options[:skip_32bit]
-  specs_cmd << "-destination platform='iOS Simulator,OS=10.2,name=iPhone 7'"
+  specs_cmd << "-destination platform=#{config.default_32bit_test_device}" unless options[:skip_32bit]
+  specs_cmd << "-destination platform=#{config.default_64bit_test_device}"
   specs_cmd << '| bundle exec xcpretty'
   specs_cmd = specs_cmd.join(" ")
 end

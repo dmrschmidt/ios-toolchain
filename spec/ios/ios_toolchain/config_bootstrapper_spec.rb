@@ -29,31 +29,39 @@ RSpec.describe IosToolchain::ConfigBootstrapper do
       let(:yaml) { YAML.load_file(config_file_path) }
 
       it('writes correct project-file-path') do
-        expect(yaml[:'project-file-path']).to eq('project_file_path')
+        expect(yaml['project-file-path']).to eq('project_file_path')
       end
 
       it('writes correct default-scheme') do
-        expect(yaml[:'default-scheme']).to eq('DefaultScheme')
+        expect(yaml['default-scheme']).to eq('DefaultScheme')
       end
 
       it('writes default-sdk') do
-        expect(yaml[:'default-sdk']).to be_nil
+        expect(yaml['default-sdk']).to eq('iphoneos10.2')
+      end
+
+      it('writes default-32bit-test-device') do
+        expect(yaml['default-32bit-test-device']).to eq("'iOS Simulator,OS=10.2,name=iPhone 5'")
+      end
+
+      it('writes default-64bit-test-device') do
+        expect(yaml['default-64bit-test-device']).to eq("'iOS Simulator,OS=10.2,name=iPhone 7'")
       end
 
       it('writes correct crashlytics-framework-path') do
-        expect(yaml[:'crashlytics-framework-path']).to eq('crashlytics_framework_path')
+        expect(yaml['crashlytics-framework-path']).to eq('crashlytics_framework_path')
       end
 
       it('writes correct app-targets') do
-        expect(yaml[:'app-targets']).to eq(['Target1', 'Target2'])
+        expect(yaml['app-targets']).to eq(['Target1', 'Target2'])
       end
 
       it('writes correct test-targets') do
-        expect(yaml[:'test-targets']).to eq(['Target1Tests', 'Target2Tests'])
+        expect(yaml['test-targets']).to eq(['Target1Tests', 'Target2Tests'])
       end
 
       it('writes correct ui-test-targets') do
-        expect(yaml[:'ui-test-targets']).to eq(['Target1UITests', 'Target2UITests'])
+        expect(yaml['ui-test-targets']).to eq(['Target1UITests', 'Target2UITests'])
       end
     end
   end

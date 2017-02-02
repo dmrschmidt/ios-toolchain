@@ -4,7 +4,7 @@ require 'bundler'
 module IosToolchain
   class Config
     def project_file_path
-      File.join(Bundler.root, config['project-file-path'])
+      config_yaml['project-file-path']
     end
 
     def default_sdk
@@ -13,6 +13,14 @@ module IosToolchain
 
     def default_scheme
       config_yaml['default-scheme']
+    end
+
+    def default_32bit_test_device
+      config_yaml['default-32bit-test-device']
+    end
+
+    def default_64bit_test_device
+      config_yaml['default-64bit-test-device']
     end
 
     def app_targets
@@ -32,7 +40,7 @@ module IosToolchain
     end
 
     def crashlytics_installed?
-      !crashlytics_framework_path.nil?
+      File.exists?(config_file_path) && !crashlytics_framework_path.nil?
     end
 
     def file_name
@@ -41,13 +49,18 @@ module IosToolchain
 
   private
 
+    def config_file_path
+      File.join(Bundler.root, file_name)
+    end
+
     def config_yaml
-      YAML.load_file(File.join(Bundler.root, file_name)) || {}
+      YAML.load_file(config_file_path) || {}
     rescue
       puts "\033[1;33m"
       puts "WARNING: no #{file_name} config file found."
       puts 'Run `rake toolchain:bootstrap`.'
       puts "\033[0m"
+      exit
       {}
     end
   end

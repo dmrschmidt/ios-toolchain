@@ -23,19 +23,16 @@ namespace :build do
 
   desc 'Builds the app with Default configuration'
   task :default do
-    args.with_defaults(:output_path => 'archive')
-    Rake::Task['build:archive_with'].invoke(args[:output_path], nil)
+    Rake::Task['build:with'].invoke('archive', nil)
   end
 
   desc 'Builds the app with Acceptance configuration'
   task :acceptance do
-    args.with_defaults(:output_path => 'archive')
-    Rake::Task['build:archive_with'].invoke(args[:output_path], 'Acceptance')
+    Rake::Task['build:with'].invoke('archive', 'Acceptance')
   end
 
   desc 'Builds the app with Beta configuration'
   task :beta do
-    args.with_defaults(:output_path => 'archive')
-    Rake::Task['build:archive_with'].invoke(args[:output_path], 'Beta')
+    Rake::Task['build:with'].invoke('archive', 'Beta')
   end
 end
