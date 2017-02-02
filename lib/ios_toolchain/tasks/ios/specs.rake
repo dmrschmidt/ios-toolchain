@@ -26,22 +26,24 @@ def run_tests_or_bail(tests, args)
   end
 end
 
-desc "Run all the tests: unit and UI, 32bit and 64bit"
-task :specs => ['specs:unit', 'specs:ui']
+namespace :ios do
+  desc "Run all the tests: unit and UI, 32bit and 64bit"
+  task :specs => ['specs:unit', 'specs:ui']
 
-namespace :specs do
-  desc "Run 64bit unit tests only"
-  task :slim do
-    Rake::Task['specs:unit'].invoke(skip_32bit: true)
-  end
+  namespace :specs do
+    desc "Run 64bit unit tests only"
+    task :slim do
+      Rake::Task['specs:unit'].invoke(skip_32bit: true)
+    end
 
-  desc "Run the unit tests (optionally skip 32 bit devices)"
-  task :unit, [:skip_32bit] => ['clean:build', 'clean:simulator'] do |task, args|
-    run_tests_or_bail(config.test_targets, args)
-  end
+    desc "Run the unit tests (optionally skip 32 bit devices)"
+    task :unit, [:skip_32bit] => ['clean:build', 'clean:simulator'] do |task, args|
+      run_tests_or_bail(config.test_targets, args)
+    end
 
-  desc "Run the UI tests (optionally skip 32 bit devices)"
-  task :ui, [:skip_32bit] => ['clean:build', 'clean:simulator'] do |task, args|
-    run_tests_or_bail(config.ui_test_targets, args)
+    desc "Run the UI tests (optionally skip 32 bit devices)"
+    task :ui, [:skip_32bit] => ['clean:build', 'clean:simulator'] do |task, args|
+      run_tests_or_bail(config.ui_test_targets, args)
+    end
   end
 end
