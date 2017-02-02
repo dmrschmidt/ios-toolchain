@@ -38,6 +38,10 @@ module IosToolchain
       end
     end
 
+    def project_root
+      File.dirname(project_path)
+    end
+
     private
 
     def shared_schemes
@@ -46,10 +50,6 @@ module IosToolchain
 
     def project_name
       project_path.split(File::SEPARATOR)[-1].split('.')[-2]
-    end
-
-    def project_root
-      File.dirname(project_path)
     end
 
     attr_reader :project

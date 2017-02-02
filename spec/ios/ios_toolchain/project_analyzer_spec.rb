@@ -66,4 +66,10 @@ RSpec.describe IosToolchain::ProjectAnalyzer do
       ])
     end
   end
+
+  describe('#project_root') do
+    it('returns the project root, relative to .xcodeproj') do
+      expect(subject.project_root).to eq(project_a_path)
+    end
+  end
 end
