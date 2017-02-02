@@ -1,3 +1,5 @@
+require 'ios_toolchain/helpers'
+
 include IosToolchain::Helpers
 
 desc "Reports and attempts to tidy up common cleanliness problems with the codebase"

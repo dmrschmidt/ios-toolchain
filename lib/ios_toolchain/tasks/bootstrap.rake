@@ -1,14 +1,19 @@
-require 'fileutils'
+require 'ios_toolchain/helpers'
+require 'ios_toolchain/project_analyzer'
+require 'ios_toolchain/config_bootstrapper'
+
 include IosToolchain::Helpers
 
 desc 'iOS Toolchain maintenance tasks'
 namespace :toolchain do
-  desc "Bootstraps iOS Toolchain configuration"
-  task :bootstrap do
-    sample_config = File.expand_path("../../config/#{config.file_name}", __FILE__)
-    target_file = File.join(Dir.pwd, config.file_name)
+  desc "Bootstraps iOS Toolchain configuration (project_path optional)"
+  task :bootstrap, :project_path do |t, args|
+    args.with_defaults(:project_path => Bundler.root)
 
-    FileUtils.cp sample_config, target_file
-    puts "Created #{target_file}."
+    analyzer = IosToolchain::ProjectAnalyzer.new(args[:project_path])
+    bootstrapper = IosToolchain::ConfigBootstrapper.new(analyzer)
+    bootstrapper.bootstrap!
+
+    puts "Created #{config.file_name}."
   end
 end

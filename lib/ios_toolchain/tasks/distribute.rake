@@ -1,3 +1,5 @@
+require 'ios_toolchain/helpers'
+
 include IosToolchain::Helpers
 
 if config.crashlytics_installed?

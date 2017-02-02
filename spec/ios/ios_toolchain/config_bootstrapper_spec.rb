@@ -6,19 +6,19 @@ RSpec.describe IosToolchain::ConfigBootstrapper do
   let(:project_analyzer) { double('ProjectAnalyzer') }
   subject { IosToolchain::ConfigBootstrapper.new(project_analyzer) }
 
-  describe('#bootstrap') do
+  describe('#bootstrap!') do
     let(:config_file_path) { File.join(project_root, '.ios_toolchain.yml') }
 
     before(:each) do
-      project_analyzer.stub(:project_root) { project_root }
-      project_analyzer.stub(:project_path) { 'project_file_path' }
-      project_analyzer.stub(:default_scheme) { 'DefaultScheme' }
-      project_analyzer.stub(:crashlytics_framework_path) { 'crashlytics_framework_path' }
-      project_analyzer.stub(:app_targets) { ['Target1', 'Target2'] }
-      project_analyzer.stub(:test_targets) { ['Target1Tests', 'Target2Tests'] }
-      project_analyzer.stub(:ui_test_targets) { ['Target1UITests', 'Target2UITests'] }
+      allow(project_analyzer).to receive(:project_root).and_return(project_root)
+      allow(project_analyzer).to receive(:project_path).and_return('project_file_path')
+      allow(project_analyzer).to receive(:default_scheme).and_return('DefaultScheme')
+      allow(project_analyzer).to receive(:crashlytics_framework_path).and_return('crashlytics_framework_path')
+      allow(project_analyzer).to receive(:app_targets).and_return(['Target1', 'Target2'])
+      allow(project_analyzer).to receive(:test_targets).and_return(['Target1Tests', 'Target2Tests'])
+      allow(project_analyzer).to receive(:ui_test_targets).and_return(['Target1UITests', 'Target2UITests'])
 
-      subject.bootstrap
+      subject.bootstrap!
     end
 
     it('writes a .ios_toolchain.yml file to project root') do

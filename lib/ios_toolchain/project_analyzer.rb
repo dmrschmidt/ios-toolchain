@@ -1,12 +1,14 @@
 require 'xcodeproj'
+require 'pathname'
 
 module IosToolchain
   class ProjectAnalyzer
-    attr_reader :project_path
+    attr_reader :project_root, :project_path
 
-    def initialize(project_path)
-      @project_path = project_path
-      @project = Xcodeproj::Project.open(project_path)
+    def initialize(project_root)
+      @project_root = Pathname.new(project_root).realpath.to_s
+      @project_path = find_project_path!
+      @project = Xcodeproj::Project.open(@project_path)
     end
 
     def default_scheme
@@ -38,10 +40,6 @@ module IosToolchain
       end
     end
 
-    def project_root
-      File.dirname(project_path)
-    end
-
     private
 
     def shared_schemes
@@ -50,6 +48,16 @@ module IosToolchain
 
     def project_name
       project_path.split(File::SEPARATOR)[-1].split('.')[-2]
+    end
+
+    def find_project_path!
+      Dir.glob(File.join(project_root, '/*.xcodeproj')).first.tap do |project|
+        return project unless project.nil?
+
+        error_message  = "No .xcodeproj file was found in #{project_root} "
+        error_message += "Run `rake toolchain:bootstrap[/path/containing/project/]`"
+        throw error_message
+      end
     end
 
     attr_reader :project

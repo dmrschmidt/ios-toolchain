@@ -5,15 +5,27 @@ RSpec.describe IosToolchain::ProjectAnalyzer do
   let(:project_file) { 'SpecFixtureProject.xcodeproj' }
   let(:project_a_path) { File.expand_path('../../../fixtures/project_a', __FILE__) }
   let(:project_b_path) { File.expand_path('../../../fixtures/project_b', __FILE__) }
-  let(:project_path) { File.join(project_a_path, project_file) }
+  let(:project_root) { project_a_path }
 
-  subject { IosToolchain::ProjectAnalyzer.new(project_path) }
+  subject { IosToolchain::ProjectAnalyzer.new(project_root) }
 
-  describe('#project_path') do
-    it('simply returns the passed in path') do
-      expect(subject.project_path).to eq(project_path)
+  describe('#project_root') do
+    context('with an absolute path') do
+      it('simply returns the passed in path') do
+        expect(subject.project_root).to eq(project_root)
+      end
     end
 
+    context('with a relative path') do
+      let(:project_root) { './spec/fixtures/project_a' }
+
+      it('returns the correct absolute in path') do
+        expect(subject.project_root).to eq(project_a_path)
+      end
+    end
+  end
+
+  describe('#default_scheme') do
     it('returns the shared scheme named like the project file') do
       expect(subject.default_scheme).to eq('SpecFixtureProject')
     end
@@ -32,7 +44,7 @@ RSpec.describe IosToolchain::ProjectAnalyzer do
     end
 
     context('when .framework can NOT be found') do
-      let(:project_path) { File.join(project_b_path, project_file) }
+      let(:project_root) { project_b_path }
       let(:crashlytics_path) { File.join(project_b_path, 'Crashlytics.framework') }
 
       it('returns the found path') do
@@ -64,12 +76,6 @@ RSpec.describe IosToolchain::ProjectAnalyzer do
       expect(subject.ui_test_targets).to eq([
         'SpecFixtureProjectUITests'
       ])
-    end
-  end
-
-  describe('#project_root') do
-    it('returns the project root, relative to .xcodeproj') do
-      expect(subject.project_root).to eq(project_a_path)
     end
   end
 end

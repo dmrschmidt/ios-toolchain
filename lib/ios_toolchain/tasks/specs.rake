@@ -1,3 +1,5 @@
+require 'ios_toolchain/helpers'
+
 include IosToolchain::Helpers
 
 def build_specs_cmd(scheme, options={})

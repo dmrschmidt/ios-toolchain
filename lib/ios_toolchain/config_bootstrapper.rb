@@ -1,4 +1,5 @@
 require 'yaml'
+require 'ios_toolchain/config'
 
 module IosToolchain
   class ConfigBootstrapper
@@ -6,7 +7,7 @@ module IosToolchain
       @analyzer = project_analyzer
     end
 
-    def bootstrap
+    def bootstrap!
       File.open(config_file_path, 'w') do |file|
         file.write config.to_yaml
       end
@@ -15,7 +16,7 @@ module IosToolchain
     private
 
     def config_file_name
-      '.ios_toolchain.yml'
+      Config.new.file_name
     end
 
     def config_file_path

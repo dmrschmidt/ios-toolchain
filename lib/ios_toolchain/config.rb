@@ -8,27 +8,27 @@ module IosToolchain
     end
 
     def default_sdk
-      config['default-sdk']
+      config_yaml['default-sdk']
     end
 
     def default_scheme
-      config['default-scheme']
+      config_yaml['default-scheme']
     end
 
     def app_targets
-      config['app-targets']
+      config_yaml['app-targets']
     end
 
     def test_targets
-      config['test-targets'] || []
+      config_yaml['test-targets'] || []
     end
 
     def ui_test_targets
-      config['ui-test-targets'] || []
+      config_yaml['ui-test-targets'] || []
     end
 
     def crashlytics_framework_path
-      config['crashlytics-framework-path']
+      config_yaml['crashlytics-framework-path']
     end
 
     def crashlytics_installed?
@@ -41,11 +41,13 @@ module IosToolchain
 
   private
 
-    def config
-      YAML.load_file(File.join(Bundler.root, file_name))
+    def config_yaml
+      YAML.load_file(File.join(Bundler.root, file_name)) || {}
     rescue
-      puts 'WARNING: no ios_toolchain.yml config file found.'
+      puts "\033[1;33m"
+      puts "WARNING: no #{file_name} config file found."
       puts 'Run `rake toolchain:bootstrap`.'
+      puts "\033[0m"
       {}
     end
   end
