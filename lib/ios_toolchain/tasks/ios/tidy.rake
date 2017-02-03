@@ -42,9 +42,10 @@ namespace :ios do
 
     desc "Removes trailing whitespace from code files"
     task :whitespace do
+      file_extensions = %w{ h m swift }
+      search_pattern = file_extensions.map { |ext| "-name \"*.#{ext}\""}.join(' -o ')
       puts "Removing trailing whitespace..."
-      filename_pattern = %w{m h swift}.map { |ext| "-name \"*.#{ext}\"" }.join(' -o ')
-      system("find #{config.app_targets.join(" ")} #{config.test_targets.join(" ")} #{filename_pattern} -exec sed -i '' -e's/[ ]*$//' \"{}\" \\;")
+      system("find #{config.app_targets.join(" ")} #{config.test_targets.join(" ")} #{search_pattern} -exec sed -i '' -e's/[ ]*$//' \"{}\" \\;")
       puts "Done!"
     end
 
