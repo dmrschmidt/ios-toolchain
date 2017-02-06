@@ -38,17 +38,17 @@ RSpec.describe IosToolchain::ProjectAnalyzer do
 
   describe('#crashlytics_framework_path') do
     context('when .framework can be found') do
-      it('returns nil') do
-        expect(subject.crashlytics_framework_path).to be_nil
-      end
-    end
-
-    context('when .framework can NOT be found') do
       let(:project_root) { project_b_path }
       let(:crashlytics_path) { File.join(project_b_path, 'Crashlytics.framework') }
 
       it('returns the found path') do
         expect(subject.crashlytics_framework_path).to eq(crashlytics_path)
+      end
+    end
+
+    context('when .framework can NOT be found') do
+      it('returns nil') do
+        expect(subject.crashlytics_framework_path).to be_nil
       end
     end
   end
