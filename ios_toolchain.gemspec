@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = "Collection of rake tasks and scripts to ease iOS development."
   spec.description   = "Collection of rake tasks and scripts to ease iOS development."
-  spec.homepage      = "http://github.com/dmrschmidt/ios_toolchain"
+  spec.homepage      = "http://github.com/dmrschmidt/ios-toolchain"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
