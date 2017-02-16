@@ -17,8 +17,8 @@ end
 def run_tests_or_bail(tests, args)
   args.with_defaults(:skip_32bit => false)
 
-  Rake::Task['clean:build'].reenable
-  Rake::Task['clean:simulator'].reenable
+  Rake::Task['ios:clean:build'].reenable
+  Rake::Task['ios:clean:simulator'].reenable
   tests.each do |target|
     if(!system(build_specs_cmd(target, skip_32bit: args[:skip_32bit])))
       bail("Specs failure - please fix the failing specs and try again.")
@@ -37,12 +37,12 @@ namespace :ios do
     end
 
     desc "Run the unit tests (optionally skip 32 bit devices)"
-    task :unit, [:skip_32bit] => ['clean:build', 'clean:simulator'] do |task, args|
+    task :unit, [:skip_32bit] => ['ios:clean:build', 'ios:clean:simulator'] do |task, args|
       run_tests_or_bail(config.test_targets, args)
     end
 
     desc "Run the UI tests (optionally skip 32 bit devices)"
-    task :ui, [:skip_32bit] => ['clean:build', 'clean:simulator'] do |task, args|
+    task :ui, [:skip_32bit] => ['ios:clean:build', 'ios:clean:simulator'] do |task, args|
       run_tests_or_bail(config.ui_test_targets, args)
     end
   end
