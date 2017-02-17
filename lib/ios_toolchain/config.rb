@@ -3,8 +3,12 @@ require 'bundler'
 
 module IosToolchain
   class Config
+    def project_root_path
+      Bundler.root.to_s
+    end
+
     def project_file_path
-      config_yaml['project-file-path']
+      absolute_path(config_yaml['project-file-path'])
     end
 
     def default_sdk
@@ -36,11 +40,11 @@ module IosToolchain
     end
 
     def provisioning_path
-      config_yaml['provisioning-path']
+      absolute_path(config_yaml['provisioning-path'])
     end
 
     def crashlytics_framework_path
-      config_yaml['crashlytics-framework-path']
+      absolute_path(config_yaml['crashlytics-framework-path'])
     end
 
     def crashlytics_installed?
@@ -53,8 +57,12 @@ module IosToolchain
 
   private
 
+    def absolute_path(path)
+      (Pathname.new(project_root_path) + Pathname.new(path)).to_s unless path.nil?
+    end
+
     def config_file_path
-      File.join(Bundler.root, file_name)
+      File.join(project_root_path, file_name)
     end
 
     def config_yaml

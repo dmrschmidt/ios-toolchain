@@ -58,7 +58,7 @@ This is the full list of available tasks, as output by `rake -T`:
     rake ios:tidy:specs                               # Unfocusses any focussed Quick specs
     rake ios:tidy:whitespace                          # Removes trailing whitespace from code files
     rake shipit                                       # Checks that we're ready to push, and then pushes the current branch to origin
-    rake toolchain:bootstrap[project_path]            # Bootstraps iOS Toolchain configuration (project_path optional)
+    rake toolchain:bootstrap[project_root]            # Bootstraps iOS Toolchain configuration (project_root optional)
     rake validate                                     # Checks you if you need to do any cleanup of the code before you push
 
 ## Contributing

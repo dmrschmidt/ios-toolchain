@@ -11,7 +11,7 @@ RSpec.describe IosToolchain::ConfigBootstrapper do
 
     before(:each) do
       allow(project_analyzer).to receive(:project_root).and_return(project_root)
-      allow(project_analyzer).to receive(:project_path).and_return('project_file_path')
+      allow(project_analyzer).to receive(:project_file_path).and_return('project_file_path')
       allow(project_analyzer).to receive(:default_scheme).and_return('DefaultScheme')
       allow(project_analyzer).to receive(:app_targets).and_return(['Target1', 'Target2'])
       allow(project_analyzer).to receive(:test_targets).and_return(['Target1Tests', 'Target2Tests'])
@@ -61,8 +61,8 @@ RSpec.describe IosToolchain::ConfigBootstrapper do
         expect(yaml['ui-test-targets']).to eq(['Target1UITests', 'Target2UITests'])
       end
 
-      it('writes correct provisioning-path') do
-        expect(yaml['provisioning-path']).to eq("#{project_root}/provisioning")
+      it('writes suggested provisioning-path') do
+        expect(yaml['provisioning-path']).to eq('./provisioning')
       end
 
       it('writes correct crashlytics-framework-path') do

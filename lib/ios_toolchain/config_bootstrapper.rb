@@ -25,7 +25,7 @@ module IosToolchain
 
     def config
       {
-        'project-file-path' => analyzer.project_path,
+        'project-file-path' => analyzer.project_file_path,
         'default-scheme' => analyzer.default_scheme,
         'default-sdk' => 'iphoneos10.2',
         'default-32bit-test-device' => "'iOS Simulator,OS=10.2,name=iPhone 5'",
@@ -33,7 +33,7 @@ module IosToolchain
         'app-targets' => analyzer.app_targets,
         'test-targets' => analyzer.test_targets,
         'ui-test-targets' => analyzer.ui_test_targets,
-        'provisioning-path' => "#{File.join(analyzer.project_root, 'provisioning')}",
+        'provisioning-path' => './provisioning',
         'crashlytics-framework-path' => analyzer.crashlytics_framework_path
       }
     end
