@@ -28,12 +28,12 @@ end
 
 namespace :ios do
   desc 'Run all the tests: unit and UI, 32bit and 64bit'
-  task :specs => ['specs:unit', 'specs:ui']
+  task :specs => ['ios:specs:unit', 'ios:specs:ui']
 
   namespace :specs do
     desc 'Run 64bit unit tests only'
     task :slim do
-      Rake::Task['specs:unit'].invoke(skip_32bit: true)
+      Rake::Task['ios:specs:unit'].invoke(skip_32bit: true)
     end
 
     desc 'Run the unit tests (optionally skip 32 bit devices)'

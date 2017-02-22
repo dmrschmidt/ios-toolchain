@@ -4,7 +4,7 @@ include IosToolchain::Helpers
 
 namespace :ios do
   desc 'Reports and attempts to tidy up common cleanliness problems with the codebase'
-  task :tidy => ['tidy:project_file', 'tidy:specs', 'tidy:whitespace', 'tidy:lint']
+  task :tidy => ['ios:tidy:project_file', 'ios:tidy:specs', 'ios:tidy:whitespace', 'ios:tidy:lint']
 
   namespace :tidy do
     desc 'Unfocusses any focussed Quick specs'

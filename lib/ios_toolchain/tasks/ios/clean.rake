@@ -2,7 +2,7 @@ include IosToolchain::Helpers
 
 namespace :ios do
   desc 'Cleans the build & resets simulator'
-  task :clean => [:'clean:build']
+  task :clean => [:'ios:clean:build']
 
   desc 'Cleans the build'
   namespace :clean do

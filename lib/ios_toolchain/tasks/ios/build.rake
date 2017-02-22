@@ -24,17 +24,17 @@ namespace :ios do
 
     desc 'Builds the app with Default configuration'
     task :default do
-      Rake::Task['build:with'].invoke('archive', nil)
+      Rake::Task['ios:build:with'].invoke('archive', nil)
     end
 
     desc 'Builds the app with Acceptance configuration'
     task :acceptance do
-      Rake::Task['build:with'].invoke('archive', 'Acceptance')
+      Rake::Task['ios:build:with'].invoke('archive', 'Acceptance')
     end
 
     desc 'Builds the app with Beta configuration'
     task :beta do
-      Rake::Task['build:with'].invoke('archive', 'Beta')
+      Rake::Task['ios:build:with'].invoke('archive', 'Beta')
     end
   end
 end
