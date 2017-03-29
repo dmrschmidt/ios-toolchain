@@ -5,30 +5,6 @@ namespace :ios do
     carthage_resolved_file_name = 'Cartfile.resolved'
     carthage_folder_name = 'Carthage'
 
-    desc 'updates our Carthage dependencies to the latest version'
-    task :update do
-      carthage_cmd = []
-      carthage_cmd << 'carthage'
-      carthage_cmd << 'update'
-      carthage_cmd << '--platform ios'
-      carthage_cmd << '--no-use-binaries'
-      carthage_cmd = carthage_cmd.join(' ')
-
-      system(carthage_cmd)
-    end
-
-    desc 'Fetches our Carthage dependencies to the locked in versions'
-    task :fetch do
-      carthage_cmd = []
-      carthage_cmd << 'carthage'
-      carthage_cmd << 'bootstrap'
-      carthage_cmd << '--platform ios'
-      carthage_cmd << '--no-use-binaries'
-      carthage_cmd = carthage_cmd.join(' ')
-
-      system(carthage_cmd)
-    end
-
     desc 'zipping'
     task :zip, :src_folder, :output_folder do |_, args|
       output_tar_path = File.join(args[:output_folder], carthage_zip_file_name)
@@ -69,6 +45,30 @@ namespace :ios do
           Rake::Task['ios:carthage:zip'].invoke(args[:src_folder], args[:output_folder])
         end
       end
+    end
+
+    desc 'updates our Carthage dependencies to the latest version'
+    task :update do
+      carthage_cmd = []
+      carthage_cmd << 'carthage'
+      carthage_cmd << 'update'
+      carthage_cmd << '--platform ios'
+      carthage_cmd << '--no-use-binaries'
+      carthage_cmd = carthage_cmd.join(' ')
+
+      system(carthage_cmd)
+    end
+
+    desc 'Fetches our Carthage dependencies to the locked in versions'
+    task :fetch do
+      carthage_cmd = []
+      carthage_cmd << 'carthage'
+      carthage_cmd << 'bootstrap'
+      carthage_cmd << '--platform ios'
+      carthage_cmd << '--no-use-binaries'
+      carthage_cmd = carthage_cmd.join(' ')
+
+      system(carthage_cmd)
     end
   end
 end
