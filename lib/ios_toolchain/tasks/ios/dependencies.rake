@@ -17,7 +17,7 @@ namespace :ios do
     desc 'unzipping'
     task :unzip, :input_folder, :output_folder  do |_, args|
       input_tar_path = File.join(args[:input_folder], carthage_zip_file_name)
-      sh("tar -xzf #{input_tar_path} --directory #{args[:output_folder]}")
+      sh("tar -xzf #{input_tar_path} --directory #{args[:output_folder]}") if File.exists?(input_tar_path)
     end
 
     desc 'caching'
@@ -54,6 +54,7 @@ namespace :ios do
       carthage_cmd << 'update'
       carthage_cmd << '--platform ios'
       carthage_cmd << '--no-use-binaries'
+      carthage_cmd << '--use-ssh'
       carthage_cmd = carthage_cmd.join(' ')
 
       system(carthage_cmd)
