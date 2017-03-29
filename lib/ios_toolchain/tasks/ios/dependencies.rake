@@ -1,5 +1,10 @@
 namespace :ios do
   namespace :carthage do
+
+    carthage_zip_file_name = 'carthage.tar.gz'
+    carthage_resolved_file_name = 'Cartfile.resolved'
+    carthage_folder_name = 'Carthage'
+
     desc 'updates our Carthage dependencies to the latest version'
     task :update do
       carthage_cmd = []
@@ -24,10 +29,7 @@ namespace :ios do
       system(carthage_cmd)
     end
 
-    carthage_zip_file_name = 'carthage.tar.gz'
-    carthage_resolved_file_name = 'Cartfile.resolved'
-    carthage_folder_name = 'Carthage'
-
+    desc 'zipping'
     task :zip, :src_folder, :output_folder do |_, args|
       output_tar_path = File.join(args[:output_folder], carthage_zip_file_name)
 
@@ -36,11 +38,13 @@ namespace :ios do
       sh("pushd #{args[:src_folder]}; tar -zcf #{output_tar_path} #{tar_content}; popd")
     end
 
+    desc 'unzipping'
     task :unzip, :input_folder, :output_folder  do |_, args|
       input_tar_path = File.join(args[:input_folder], carthage_zip_file_name)
       sh("tar -xzf #{input_tar_path} --directory #{args[:output_folder]}")
     end
 
+    desc 'caching'
     task :use_cached, [:download_folder, :destination_folder] => [:unzip] do |_, args|
       puts '### moving Carthage folder into place from cached download...'
       carthage_folder_path = File.join(args[:download_folder], carthage_folder_name)
@@ -48,6 +52,7 @@ namespace :ios do
       sh("mv #{carthage_folder_path} #{download_cartfile_resolved} #{args[:destination_folder]}")
     end
 
+    desc 'smart fetching'
     task :smart_fetch, :src_folder, :download_folder, :output_folder do |_, args|
       puts '### getting Carthage from cache or recreating...'
       source_cartfile_resolved = File.join(args[:src_folder], carthage_resolved_file_name)
