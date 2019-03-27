@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'ios_toolchain/config_bootstrapper'
+require "tmpdir"
 
 RSpec.describe IosToolchain::ConfigBootstrapper do
   let(:project_root) { Dir.mktmpdir }
