@@ -1,5 +1,7 @@
-include IosToolchain::Helpers
+require 'ios_toolchain/helpers'
 require 'fileutils'
+
+include IosToolchain::Helpers
 
 namespace :ios do
 	desc 'helpers for dealing with provisiong'

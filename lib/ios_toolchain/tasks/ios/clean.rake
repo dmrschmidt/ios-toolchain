@@ -1,3 +1,5 @@
+require 'ios_toolchain/helpers'
+
 include IosToolchain::Helpers
 
 namespace :ios do
