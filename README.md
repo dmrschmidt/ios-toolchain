@@ -1,5 +1,7 @@
 # iOS Toolchain
 
+[![Build Status](https://travis-ci.org/dmrschmidt/ios-toolchain.svg?branch=master)](https://travis-ci.org/dmrschmidt/ios-toolchain/)
+
 A collection of `rake` tasks that help you keep a clean codebase and ease some of the daily pains when working in teams, like handling provisioning certificates.
 
 ## Installation
