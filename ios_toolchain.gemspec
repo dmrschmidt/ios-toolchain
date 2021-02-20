@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "ios_toolchain"
   spec.version       = IosToolchain::VERSION
   spec.authors       = ["Dennis Schmidt"]
-  spec.email         = ["dschmidt@pivotal.io"]
+  spec.email         = ["dmrschmidt@gmail.com"]
 
   spec.summary       = "Collection of rake tasks and scripts to ease iOS development."
   spec.description   = "Collection of rake tasks and scripts to ease iOS development."
@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "rspec", "~> 3.0"
 
-  spec.add_dependency "rake", "~> 12.0"
+  spec.add_dependency "rake", "~> 13.0"
   spec.add_dependency "xcodeproj", "~> 1.4"
   spec.add_dependency "xcpretty", "~> 0.2"
 end
